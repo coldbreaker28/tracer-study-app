@@ -1,0 +1,285 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Poppins" , sans-serif;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #233037;
+    padding: 30px;
+}
+.container{
+    position: relative;
+    max-width: 1085px;
+    width: 100%;
+    background: #fff;
+    padding: 40px 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    perspective: 2700px;
+}
+.container .cover{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 50%;
+    z-index: 98;
+    transition: all 1s ease;
+    transform-origin: left;
+    transform-style: preserve-3d;
+}
+.container #flip:checked ~ .cover{
+    transform: rotateY(-180deg);
+}
+.container .cover .front,
+.container .cover .back{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.cover .back{
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+.container .cover::before,
+.container .cover::after{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #233037;
+    opacity: 0.5;
+    z-index: 12;
+}
+.container .cover::after{
+    opacity: 0.3;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+.container .cover img{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 10;
+}
+.container .cover .text{
+    /* position: absolute;
+    z-index: 130;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+}
+.cover .text .text-1,
+.cover .text .text-2{
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+.cover .text .text-2{
+    font-size: 15px;
+    font-weight: 500;
+}
+.container .forms{
+    /* height: 100%; */
+    /* max-width: 850px; */
+    width: 500px;
+    background: #fff;
+}
+.container .form-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.form-content .login-form,
+.form-content .signup-form{
+    width: calc(100% / 2 - 25px);
+}
+.forms .form-content .title{
+    position: relative;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+}
+.forms .form-content .title:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 25px;
+    background: #233037;
+}
+.forms .signup-form  .title:before{
+    width: 20px;
+}
+.forms .form-content .input-boxes{
+    margin-top: 30px;
+}
+.forms .form-content .input-box{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    margin: 10px 0;
+    position: relative;
+}
+.form-content .input-box input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+.form-content .input-box input:focus,
+.form-content .input-box input:valid{
+    border-color: #283b47;
+}
+.form-content .input-box input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+.form-content .input-box input:focus,
+.form-content .input-box input:valid{
+    border-color: #283b47;
+}
+.form-content .input-box select{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+.form-content .input-box select:focus,
+.form-content .input-box select:valid{
+    border-color: #283b47;
+}
+.form-content .input-box i{
+    position: absolute;
+    color: #233037;
+    font-size: 17px;
+}
+.form-content .input-box .toggle-password{
+    position: relative;
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+}
+.forms .form-content .text{
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+.forms .form-content .text a{
+    color: #333;
+    text-decoration: none;
+}
+.forms .form-content .text a:hover{
+    text-decoration: underline;
+}
+.forms .form-content .button{
+    color: #fff;
+    margin-top: 40px;
+    place-content: center;
+}
+.forms .form-content .button button{
+    color: #fff;
+    background: #233037;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+.forms .form-content .button button:hover{
+    background: #2e414d;
+}
+.forms .form-content label{
+    color: #233037;
+    cursor: pointer;
+}
+.forms .form-content label:hover{
+    text-decoration: underline;
+}
+.forms .form-content .login-text,
+.forms .form-content .sign-up-text{
+    text-align: center;
+    margin-top: 25px;
+}
+.container #flip{
+    display: none;
+}
+@media (max-width: 730px) {
+    .container .cover{
+        display: none;
+    }
+    .form-content .login-form,
+    .form-content .signup-form{
+        width: 100%;
+    }
+    .form-content .signup-form{
+        display: none;
+    }
+    .container #flip:checked ~ .forms .signup-form{
+        display: block;
+    }
+    .container #flip:checked ~ .forms .login-form{
+        display: none;
+    }
+}
+/* .avatar .img{
+    clip-path: ellipse(50% 50% at center);
+    margin: 0px 5px 0px 5px;
+    padding: 3px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-radius: 2px solid #FFFF;
+} */
+.inputfile{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #233037;
+    display: inline-block;
+    cursor: pointer;
+}
+.inputfile:focus +label,
+.inputfile + label:hover{
+    background-color: #283b47;
+}

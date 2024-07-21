@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    color: #1d1d1d;
+    background: linear-gradient(#B4E6FF,#F5F8FF);
+}
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2em;
+    color: #0f94e1;
+    pointer-events: none;
+    margin-right: 260px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #0f94e1;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin: 0 10px;
+    font-weight: 600;
+}
+
+.navigation a:hover, 
+.navigation a.active {
+    background: #0f94e1;
+    color: #FFFFFF;
+}
+
+p, h2 {
+    position: relative;
+    z-index: 1;
+    margin: 20px 15%;
+}
+
+section {
+    padding: 40px 0;
+}
+
+.image2 {
+    height: 400px;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-image: url("https://images.alphacoders.com/105/105131.jpg");
+}
+
+.image1 {
+    height: 400px;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-image: url("https://images2.alphacoders.com/710/710184.jpg");
+}
+
+.text {
+    position: relative;
+}
+
+.text::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    rotate: 0deg;
+    translate: -50% -50%;
+    width: 150%;
+    height: 125%;
+    background: #FFFFFF;
+}

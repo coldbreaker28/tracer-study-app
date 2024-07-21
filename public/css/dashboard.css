@@ -1,0 +1,276 @@
+.add-data-btn{
+    /* margin: 15px;
+    margin-bottom: 25px; */
+    padding: 10px;
+    background-color: #017DFA;
+    color: #fff;
+    /* outline: 1px solid #dfe9f5; */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    /* bottom: 30px; */
+    font-size: 11px;
+}
+/* .sorting-section{
+    border: 2px solid #2B2B2B;
+    padding: -50px;
+} */
+.add-data-btn:hover{
+    background-color: #0f4b88;
+}
+.add-data-btn:active{
+    background-color: #065AAE;
+}
+.update-data-btn{
+    padding: 10px;
+    margin-left: 3%;
+    color: #FFFFFF;
+    background-color: #00ce33;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-size: 11px;
+}
+.update-data-btn:hover{
+    background-color: #0f9731;
+}
+.update-data-btn:active{
+    background-color: #0a6822;
+}
+.secondary-data-btn{
+    padding: 10px;
+    margin-left: 3%;
+    color: #1B262C;
+    background-color: #FFD015;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-size: 11px;
+}
+.secondary-data-btn:hover{
+    background-color: #E1B60B;
+}
+.secondary-data-btn:active{
+    background-color: #D3920F;
+}
+br{
+    margin-bottom: 20px;
+}
+.content {
+    /* max-width: auto;
+    margin: 85px 200px; */
+    /* top: px; */
+    /* margin: 10px; */
+    margin: 20px 0px 10px 0px;
+    padding: 20px;
+    background-color: rgb(243, 251, 255);
+    border-radius: 10px 15px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+}
+.content-kuis {
+    /* margin: 20px 0px 10px 0px; */
+    padding: 20px;
+    background-color: rgb(243, 251, 255);
+    border-radius: 10px 15px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+}
+
+.content-transparent{
+    max-width: 430px;
+    /* margin: 85px 200px; */
+    /* top: px; */
+    margin: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 10px 15px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+}
+.contain-btn-ekspor{
+    width: 100%;
+    max-width: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+/* .container-body .chart-content{
+    width: 500px;
+    height: 400px;-
+    margin-left: 10px;
+    padding: 10px;
+    border: 2px solid #01DCFE;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #9400FF;
+} */
+
+/* .table-content {
+    padding: 25px;
+    display: flex;
+    overflow-x: auto;
+} */
+.responsive-table {
+    flex-grow: 1;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    border: 0.5px dashed;
+}
+.responsive-table th {
+    font-size: 14px;
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #1B262C;
+}
+.responsive-table td{
+    font-size: 12px;
+    padding: 8px;
+    text-align: left;
+}
+.responsive-table th {
+    background-color: #1B262C;
+    color: #fff;
+}
+/* .responsive-table td{
+    border: 1px inset #0C607E;
+} */
+
+.responsive-table tr:nth-child(even) {
+    background-color: rgba(148, 0, 255, 0.1);
+}
+.responsive-table tr:hover{
+    background-color: rgba(148, 0, 255, 0.3);
+    border: 1px dashed #1B262C;
+}
+.content hr{
+    border: 1px solid #EDE5F2;
+    margin: 10px 0;
+}
+.content-transparent hr{
+    border: 1px solid #EDE5F2;
+    margin: 5px 0 10px 0;
+    max-width: 400px;
+    width: 100%;
+}
+h3{
+    font-size: 16px;
+}
+
+/* Gaya untuk tombol aksi */
+.aksi-btn {
+    display: flex;
+    gap: 5px;
+    justify-content: left;
+    align-items: center;
+    vertical-align: middle;
+}
+
+/* Gaya untuk tautan "Lihat Detail" */
+.read-btn {
+    background-color: #0A7FE6;
+    /* color: #2B2B2B; */
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 600;
+    box-shadow: 0 5px 10px rgba(148, 0, 255, 0.1);
+}
+
+.read-btn:hover {
+    background-color: #0c70c7;
+}
+
+/* Gaya untuk tautan "Edit" */
+.update-btn {
+    background-color: #00ce33;
+    /* color: #2B2B2B; */
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 600;
+    box-shadow: 0 5px 10px rgba(148, 0, 255, 0.1);
+}
+
+.update-btn:hover {
+    background-color: #0cb436;
+    transition: all 0.3s ease;
+}
+.update-btn:active{
+    background-color: #0f8e2f;
+    transition: all 0.3s ease;
+}
+
+/* Gaya untuk tombol "Hapus" */
+.delete-btn {
+    background-color: #fc3e48;
+    /* color: #2B2B2B; */
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 9px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 5px 10px rgba(148, 0, 255, 0.1);
+}
+
+.delete-btn:hover {
+    background-color: #EB3B5A;
+}
+.aksi-btn i{
+    padding-right: 5px;
+}
+
+.back-btn {
+    background-color: #fc3e48;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(148, 0, 255, 0.1);
+}
+.back-btn:hover {
+    background-color: #EB3B5A;
+}
+
+.send-btn{
+    background-color: #0A7FE6;
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(148, 0, 255, 0.1);
+}
+.send-btn:hover{
+    background-color: #0c70c7;
+}
+@media screen and (max-width: 480px) {
+    .contain-btn-ekspor{
+        justify-content: space-around;
+    }
+    .content-transparent .contain-btn-ekspor{
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+    .content-transparent .contain-btn-ekspor a {
+        font-size: 8px;
+    }
+    .content-transparent .contain-btn-ekspor a i{
+        font-size: 10px;
+    }
+    .responsive-table thead tr th{
+        font-size: 9px;
+    }
+    .responsive-table tbody tr td{
+        font-size: 8px;
+    }
+}

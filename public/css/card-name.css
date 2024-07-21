@@ -1,0 +1,139 @@
+.card{
+    display: flex; 
+    flex-wrap: wrap;
+    border-radius: 1rem;
+    background: none;
+    overflow: hidden; 
+    color: #0C356A;
+    max-width: clamp(
+        20rem, 70vw, 46.25rem
+        );
+    min-width: 20rem;
+    min-height: 17.5mm;
+}
+.card:hover{
+    box-shadow: rgba(0,0,0,0.35);
+}
+.background{
+    flex: 1 1 15rem;
+}
+
+.background img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.content{
+    flex: 3 1 22rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 1rem;
+    background: rgba(255,255,255,0.3);
+}
+.content > h2{
+    font-size: clamp(
+        1.3rem, 2.5vw, 1.8rem
+    );
+    font-weight: 700;
+    margin-bottom: clamp(
+        0.35rem, 2vw, 0.55rem
+    );
+}
+.content > p{
+    font-size: clamp(
+        1rem, 1.75vw, 1.1rem
+    );
+    font-weight: 400;
+    margin: 0.4rem 0;
+}
+.content a {
+    color: var(--text);
+}
+.chips{
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0.75rem 0px 1rem 0px;
+}
+.chip{
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9375rem;
+    background: var(--card-bg);
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+    font-weight: 500;
+    cursor: default;
+}
+.chip:hover {
+    color: var(--text);
+    text-decoration: underline;
+}
+.tombol-aksi{
+    border-top: 1px solid var(--gray);
+    padding-top: 1rem;
+    gap: 0.75rem;
+    display: flex;
+    margin-top: auto;
+    flex-wrap: wrap;
+}
+.tombol-aksi button, .tombol-aksi a {
+    background: #FFCF0D;
+    color: var(--text-dark);
+    padding: 0.75rem;
+    text-decoration: none;
+    border-radius: 0.75rem;
+    outline: none;
+    border: none;
+    font-size: 1.125rem;
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    flex: 1 0 15rem;
+    max-width: 100%;
+}
+.tombol-aksi button:hover, .tombol-aksi a:hover{
+    text-decoration: underline;
+}
+.tombol-aksi button.secondary{
+    background: inherit;
+    border: 1px solid var(--text);
+    flex: 1 0 5rem;
+}.tombol-aksi button i{
+    margin-right: 5px;
+}
+.hide{
+    display: none;
+}
+@media screen and (max-width: 1024px) {
+    header {
+        padding: 20px 30px; /* Mengurangi padding untuk header pada ukuran layar lebih kecil */
+    }
+
+    .logo {
+        margin-right: 100px; /* Mengurangi margin untuk logo pada ukuran layar lebih kecil */
+    }
+
+    .navigation a {
+        display: none; /* Mengurangi padding untuk tautan navigasi pada ukuran layar lebih kecil */
+    }
+
+    .navigation .nav-dropdown a{
+        display: block;
+    }
+    .navigation span {
+        display: block;
+    }
+
+    .menu-icon {
+        display: block;
+        background: transparent;
+        border-radius: 40%;
+        border: none;
+        font-size: 1.5em;
+    }
+}

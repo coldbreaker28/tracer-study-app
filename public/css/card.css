@@ -1,0 +1,141 @@
+:root {
+    --multimedia-color: #B010E1;
+    --teknik-kendaraan-color: #818181;
+    --agrobisnis-color: orange;
+    --teknik-pemesinan-color: #1EC2EB;
+    --teknik-pengelasan-color: #ED1010;
+}
+/* Komponen Gaya Awal */
+.card-container{
+    /* max-width: auto;
+    margin: 85px 200px; */
+    display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    flex-wrap: wrap;
+    gap: 8px;
+    flex-direction: row;
+    margin-left: 1%;
+    transition: all 0.5s ease;
+}
+
+.card-multimedia{
+    width: 220px;
+    padding: 10px;
+    height: 110px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    background-color: var(--multimedia-color);
+    color: #FFFFFF;
+}
+
+.card-otomotif{
+    width: 220px;
+    padding: 10px;
+    height: 110px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    background-color: var(--teknik-kendaraan-color);
+    color: #FFFFFF;
+}
+
+.card-agrobisnis{
+    width: 220px;
+    padding: 10px;
+    height: 110px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    background-color: var(--agrobisnis-color);
+    color: #FFFFFF;
+}
+
+.card-Mesin{
+    width: 220px;
+    padding: 10px;
+    height: 110px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    background-color: var(--teknik-pemesinan-color);
+    color: #FFFFFF;
+}
+
+.card-Las{
+    width: 220px;
+    padding: 10px;
+    height: 110px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    background-color: var(--teknik-pengelasan-color);
+    color: #FFFFFF;
+}
+
+p{
+    font-size: 10px;
+    text-align: justify;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.chart-card {
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+    height: 550px;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    padding: 20px;
+}
+.grup-chart{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+.chart-card-pengisian {
+    position: relative;
+    max-width: 380px;
+    width: 100%;
+    height: 420px;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    padding: 20px;
+}
+.chart-card-dasbord {
+    position: relative;
+    max-width: 650px;
+    width: 100%;
+    height: 400px;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    padding: 20px;
+}
+
+/* #pengisianData {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+} */
+
+@media (max-width: 768px){
+    .card-container{
+        grid-template-columns: repeat(2, 1fr);
+        flex-direction: column;
+    }
+    .chart-card{
+        height: 300px;
+        margin-bottom: 50px;
+    }
+    /* .graph{
+        width: 80%;
+        height: 100%;
+    } */
+}

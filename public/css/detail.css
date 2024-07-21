@@ -1,0 +1,73 @@
+/* .table th{
+    text-align: left;
+} */
+
+.responsive-table-detail {
+    flex-grow: 1;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+.responsive-table-detail th {
+    font-size: 11px;
+    width: 15%;
+    padding: 8px;
+    text-align: left;
+}
+.responsive-table-detail td{
+    font-size: 10px;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #1B262C;
+}
+.responsive-table-detail th {
+    background-color: #1B262C;
+    color: #fff;
+    border: 1px solid #1B262C;
+}
+/* .responsive-table td{
+    border: 1px inset #0C607E;
+} */
+.responsive-table-detail tr:nth-child(even) {
+    background-color: rgba(148, 0, 255, 0.1);
+}
+.responsive-table-detail tr:hover{
+    background-color: rgba(148, 0, 255, 0.3);
+}
+.content hr{
+    border: 1px solid #EDE5F2;
+    margin: 10px 0;
+}
+.content h2, h3{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.action-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.generate-password-btn{
+    padding: 5px 10px;
+    background-color: #17a2b8;
+    color: #FFF;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(148, 0, 255, 0.1);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.generate-password-btn:hover{
+    background-color: #0d8698;
+    transition: all 0.3s ease;
+}
+.generate-password-btn:active{
+    background-color: #096977;
+    transition: all 0.3s ease;
+}
+.posisi{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}

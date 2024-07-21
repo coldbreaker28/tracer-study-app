@@ -1,0 +1,347 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+*{
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(#B4E6FF,#F5F8FF);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+h2{
+    color: #0C356A; 
+}
+h1{
+    margin-left: 20px;
+    color: #252525;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 50px;
+    margin: 0px 0px 30px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background-color: rgba(65, 255, 227, 0.415);
+}
+.logo {
+    font-size: 2em;
+    color: #FFFFFF;
+    pointer-events: none;
+    margin-right: 20px;
+}
+.navigation {
+    display: flex;
+    align-items: center;
+}
+.navigation a {
+    text-decoration: none;
+    color: #395886;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin: 0 10px;
+    font-weight: 600;
+}
+.navigation .username {
+    color: #0C356A;
+    font-weight: 600;
+    margin-right: 10px;
+    cursor: default;
+}
+.navigation a:hover, 
+.navigation a.active {
+    background: #395886;
+    color: #FFFFFF;
+}
+.nav-dropdown {
+    position: absolute;
+    background: inherit;
+    flex-direction: column;
+    text-align: center;
+    z-index: 10;
+    top: 75px;
+    right: 5px;
+}
+.nav-dropdown a {
+    color: #FFFFFF;
+}
+.menu-icon {
+    display: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.parallax {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110vh;
+    /* margin-bottom: 40px; */
+}
+
+#text {
+    position: absolute;
+    font-size: 4em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+}
+
+.parallax img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 200px;
+    width: 100%;
+    pointer-events: none;
+}
+
+.sec {
+    position: relative;
+    background: #1C3A54;
+    /* background: #939EA5; */
+    padding: 100px;
+}
+
+.sec h2 {
+    font-size: 3em;
+    color: #FFF;
+    margin-bottom: 10px;
+}
+
+.sec2 h2 {
+    font-size: 3em;
+    color: #FFF;
+    margin-bottom: 10px;
+}
+
+.sec p {
+    font-size: 1em;
+    color: #FFF;
+    font-weight: 300;
+}
+
+.sec2 {
+    position: relative;
+    background: #1C3A54;
+    padding: 0 100px 100px 100px;
+}
+
+.sec2-body {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sec2-body h3{
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.sec2-body .card-about {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px 20px 15px 20px;
+    background: rgba(190, 227, 237, 0.681);
+    border-radius: 5px 15px;
+    max-width: 1200px;
+    height: auto;
+    position: relative;
+}
+.card-about p {
+    color: #fff;
+}
+.card-body-about {
+    margin: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px 15px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+.chart-card {
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+    height: 550px;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    padding: 20px;
+}
+.content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px 15px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+}
+.sec2 .contact {
+    background: #fff;
+    color: #1C3A54;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.sec3 {
+    position: relative;
+    background: #041626;
+    padding: 50px 10px 10px 10px;
+}
+
+.sec4 {
+    position: relative;
+    background: #1C3A54;
+    padding: 100px 20px 20px 20px;
+}
+
+@media screen and (max-width: 1200px) {
+    header {
+        padding: 20px 30px;
+    }
+
+    .logo {
+        margin-right: 100px;
+    }
+
+    .navigation a {
+        display: none;
+    }
+
+    .navigation .nav-dropdown a{
+        display: block;
+    }
+    .navigation span {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+        background: transparent;
+        border-radius: 40%;
+        border: none;
+        font-size: 1.5em;
+    }
+    .sec {
+        margin: 0 auto;
+        padding: 50px;
+    }
+    .sec2 {
+        margin: 0 auto;
+        padding: 30px;
+    }
+    .parallax {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40vh; /* Tinggi yang lebih kecil untuk layar kecil */
+        /* margin-bottom: 40px; */
+    }
+}
+@media screen and (max-width: 1000px) {
+    .parallax {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 38vh; /* Tinggi yang lebih kecil untuk layar kecil */
+        /* margin-bottom: 40px; */
+    }
+    #text {
+        position: absolute;
+        font-size: 3em;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+    }
+}
+@media screen and (max-width: 768px) {
+    header {
+        padding: 10px 20px; /* Mengurangi padding lebih lanjut pada ukuran layar lebih kecil */
+    }
+
+    .logo {
+        margin-right: 20px; /* Mengurangi margin lebih lanjut pada ukuran layar lebih kecil */
+        font-size: 1.5em; /* Mengurangi ukuran font untuk logo pada ukuran layar lebih kecil */
+    }
+
+    .parallax {
+        display: flex; /* Mengurangi margin bawah pada ukuran layar lebih kecil */
+        height: 10vh;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 5px 10px; /* Mengurangi padding lebih lanjut pada ukuran layar sangat kecil */
+    }
+
+    .logo {
+        margin-right: 10px; /* Mengurangi margin lebih lanjut pada ukuran layar sangat kecil */
+        font-size: 1.2em; /* Mengurangi ukuran font untuk logo pada ukuran layar sangat kecil */
+    }
+
+    .navigation a {
+        padding: 6px 8px; /* Mengurangi padding lebih lanjut untuk tautan navigasi pada ukuran layar sangat kecil */
+    }
+
+    .parallax {
+        margin-bottom: 10px; /* Mengurangi margin bawah pada ukuran layar sangat kecil */
+    }
+
+    .sec h2,
+    .sec2 h2 {
+        font-size: 2em; /* Mengurangi ukuran font untuk judul pada ukuran layar sangat kecil */
+    }
+
+    .sec p {
+        font-size: 0.9em; /* Mengurangi ukuran font untuk teks pada ukuran layar sangat kecil */
+    }
+
+    .sec2 .card-about {
+        width: 100%; /* Mengisi lebar layar untuk kartu about pada ukuran layar sangat kecil */
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .card-description {
+        font-size: 9px; /* Mengurangi ukuran font untuk deskripsi pada ukuran layar sangat kecil */
+    }
+
+    .chart-card {
+        height: 400px; /* Mengurangi tinggi kartu chart pada ukuran layar sangat kecil */
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .sec h2,
+    .sec2 h2 {
+        font-size: 1.8em; /* Mengurangi ukuran font lebih lanjut untuk judul pada ukuran layar sangat kecil */
+    }
+
+    .sec p {
+        font-size: 0.8em; /* Mengurangi ukuran font lebih lanjut untuk teks pada ukuran layar sangat kecil */
+    }
+
+    .card-description {
+        font-size: 8px; /* Mengurangi ukuran font lebih lanjut untuk deskripsi pada ukuran layar sangat kecil */
+    }
+
+    .sec2 .contact {
+        width: 30px; /* Mengurangi ukuran ikon kontak pada ukuran layar sangat kecil */
+        height: 30px;
+    }
+}

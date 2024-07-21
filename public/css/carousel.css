@@ -1,0 +1,96 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    max-width: 700px;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.card-karir {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px -5px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.background-karir img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.content-karir {
+    padding: 20px;
+    text-align: center;
+}
+
+.chips-karir {
+    list-style: none;
+    padding: 0;
+}
+
+.chip-karir {
+    display: inline-block;
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.tombol-aksi-karir {
+    margin-top: 10px;
+}
+
+.tombol-aksi-karir a {
+    display: inline-block;
+    background-color: #1E90FF;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.tombol-aksi-karir a:hover {
+    background-color: #1C86EE;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2em;
+    padding: 0 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}

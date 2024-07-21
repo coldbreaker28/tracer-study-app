@@ -1,0 +1,472 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+body{
+    background: #c0cbd3;
+    /* background: #FFFFFF; */
+}
+body::-webkit-scrollbar{
+    display: auto;
+}
+hr{
+    border: 1px solid rgba(237, 229, 242, 0.1);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    margin-right: 55px;
+    
+}
+.main-content{
+    margin: 80px 0px 0px -15px;
+}
+.container-body{
+    margin: 20px 90px;
+    transition: margin 0.5s ease;
+    
+}
+.nav-bar{
+    background-color: #1B262C;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px 20px;
+    z-index: 1000;
+}
+.nav-text {
+    position: relative;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.logo-container{
+    margin-right: 10px;
+}
+.logo-container img{
+    width: 40px;
+    height: 40px;
+    margin-left: 2%;
+    padding-left: 2%;
+}
+.user-logout-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+}
+.user-logout-container .username{
+    color: #FFFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+.user-logout-container .logo{
+    margin-right: 10px;
+}
+.user-logout-container .logo:last-child{
+    order: 1;
+}
+.nav-text .logo {
+    color: #ffff;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.nav-text .logo:hover{
+    color: #E4F1FF;
+}
+
+.var1 {
+    font-size: 18px;
+    color: #01DCFE;
+}
+.toggle-btn {
+    background-color: #fff;
+    color: #9400FF;
+    box-shadow: 4px 3px 8px rgba(53, 186, 243, 0.2);
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    position: fixed;
+    border-radius: 20%;
+    top: 50%; /* Meletakkan tombol hamburger di tengah vertikal */
+    left: 5px;
+    transform: translateY(-50%); /* Mengatur tombol hamburger di tengah vertikal */
+    z-index: 10;
+    transition: all 0.5s ease;
+    display: inline-block;
+}
+.toggle-btn.active {
+    background-color: #017DFA;
+    color: #fff;
+    transform: translateY(-50%) rotate(180deg);
+    left: 215px;
+}
+.sidebar {
+    width: 210px;
+    height: 200%;
+    background-color: #233037;
+    color: #fff;
+    top: 50px;
+    padding-top: 5px;
+    position: fixed;
+    left: -220px;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 10px rgba(23,46,110,0.2);
+    z-index: 10;
+}
+.sidebar ul {
+    margin-top: 25px;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    position: relative;
+}
+.sidebar .menu {
+    margin-top: 10px;
+    padding: 5px;
+    padding-left: 30px;
+    transition: all 0.5s ease;
+    /* margin-top: 5px; */
+    position: relative;
+}
+.sidebar .menu-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sidebar .menu-item .arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+.sidebar .arrow.rotate {
+    position: absolute;
+    top: 0%;
+    top: 15px;
+    transform: translateY(-50%) rotate(-180deg);
+}
+.sidebar ul li .menu-item span{
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+.sidebar a:hover {
+    color: #01DCFE;
+}
+.sidebar i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+.sidebar .menu .menu-item span:hover {
+    color: #01DCFE;
+    transition: all 0.3s ease;
+}
+/* Gaya submenu */
+.sidebar .submenu {
+    display: none;
+    margin-top: 5px;
+    /* margin-right: 5px; */
+    list-style: none;
+    padding-right: 5px;
+    /* padding-left: 5px; */
+    transition: all 0.3s ease;
+}
+.sidebar .submenu.active {
+    display: block;
+    opacity: 1;
+    max-height: 100%;
+    transition: all 0.3s ease;
+}
+.sidebar .submenu li {
+    margin: 0;
+    margin-left: 5px;
+}
+.sidebar .submenu a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 5px 0px 5px 15px;
+    transition: color 0.3s ease;
+    font-size: 12px;
+}
+.sidebar .submenu i{
+    font-size: 12px;
+}
+.sidebar .submenu a:hover {
+    color: #01DCFE;
+}
+
+.avatar-profile{
+    margin: 25px 50px 25px 50px;
+    padding: 5px;
+    box-shadow: 2px 3px 4px rgba(53, 186, 243, 0.2);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background: transparent;
+    border: 2px solid #FFFFFF;
+}
+.avatar img{
+    clip-path: ellipse(50% 50% at center);
+    margin: 8px 5px 0px 5px;
+    padding: 3px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+}
+.sidebar .menu:active{
+    background: rgba(53, 186, 243, 0.5);
+    transition: all 0.7s ease;
+}
+@media screen and (max-width: 768px){
+    .nav-text .logo-container img{
+        display: none;
+    }
+    .nav-text .logo, .var1 {
+        display: flex;
+        font-size: 10px;
+    }
+    .user-logout-container{
+        margin: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: end;
+    }
+    .user-logout-container img{
+        width: 25px;
+        height: 25px;
+    }
+    .user-logout-container .logo{
+        font-size: 10px;
+    }
+    .user-logout-container .var1{
+        font-size: 10px;
+    }
+    .user-logout-container span {
+        font-size: 12px;
+    }
+    .container-body {
+        margin: 10px 20px;
+    }
+    .nav-bar{
+        padding: 10px;
+    }
+    .nav-text{
+        font-size: 9px;
+    }
+    .sidebar {
+        width: 150px;
+        height: 200%;
+        color: #fff;
+        top: 50;
+        /* padding-top: 5px; */
+        position: fixed;
+        left: -220px;
+        transition: all 0.5s ease;
+        box-shadow: 0 0 10px rgba(23,46,110,0.2);
+        z-index: 10;
+        
+    }
+    .toggle-btn {
+        background-color: #fff;
+        color: #017DFA;
+        box-shadow: 4px 3px 8px rgba(53, 186, 243, 0.2);
+        cursor: pointer;
+        border: none;
+        /* padding: 5px; */
+        /* margin: 5px; */
+        cursor: pointer;
+        font-size: 20px;
+        position: fixed;
+        border-radius: 20%;
+        top: 50%; /* Meletakkan tombol hamburger di tengah vertikal */
+        left: 5px;
+        transform: translateY(-50%); /* Mengatur tombol hamburger di tengah vertikal */
+        z-index: 100;
+        transition: all 0.5s ease;
+        outline: none;
+        display: inline-block;
+    }
+    .toggle-btn.active {
+        background-color: #017DFA;
+        color: #fff;
+        transform: translateY(-50%) rotate(180deg);
+        left: 130px;
+        z-index: 1000;
+    }
+
+    .sidebar .submenu {
+        display: none;
+        /* top: 0;
+        left: 100%; */
+        margin-top: 10px;
+        margin-right: 10px;
+        list-style: none;
+        padding-right: 10px;
+        transition: all 0.3s ease;
+    }
+    .sidebar .submenu.active {
+        display: block;
+        opacity: 1;
+        max-height: 100%;
+        transition: all 0.3s ease;
+    }
+    .sidebar .submenu li {
+        padding: 5;
+        margin: 0;
+        margin-left: 8px;
+    }
+    
+    .sidebar .menu i{
+        font-size: 12px;
+    }
+
+    /* Gaya teks menu di layar kecil */
+    .sidebar a {
+        font-size: 12px; /* Sesuaikan ukuran font */
+    }
+
+    /* Gaya submenu di layar kecil */
+    .sidebar .submenu {
+        margin-top: 0.5rem;
+        margin-left: 0.5rem;
+    }
+
+    /* Gaya teks submenu di layar kecil */
+    .sidebar .menu .menu-item span{
+        font-size: 10px;
+    }
+
+    .sidebar .submenu a {
+        font-size: 10px; /* Sesuaikan ukuran font */
+    }
+    .sidebar .avatar-profile{
+        width: 75px;
+        height: 75px;
+        padding: 5px;
+        margin: 20px 20px 20px 38px;
+        background: transparent;
+    }
+    .sidebar .avatar-profile .avatar img{
+        clip-path: ellipse(50% 50% at center);
+        padding: 10px 10px 15px 10px;
+        width: 100%;
+        height: 100%;
+    }
+}
+@media screen and (max-width: 365px) {
+    .nav-bar{
+        padding: 20px 10px 20px 10px;
+        align-items: center;
+    }
+    .container-body{
+        margin: 20px 10px;
+    }
+    .nav-text{
+        font-size: 14px;
+        /* padding-right: 20px; */
+    }
+    
+    .toggle-btn{
+        background-color: #FFFFFF;
+        color: #017DFA;
+        box-shadow:  4px 3px 8px rgba(53,186,243,0.3);
+        cursor: pointer;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        position: fixed;
+        border-radius: 20%;
+        top: 50%;
+        transform:  translateY(-50%);
+        z-index: 100;
+        transition: all 0.5s ease;
+        outline: none;
+        display: inline-block;
+    }
+    .toggle-btn.active{
+        background-color: #017DFA;
+        color: #fff;
+        transform: translateY(-50%) rotate(180deg);
+        z-index: 1000;
+        left: 100px;
+    }
+    .sidebar{
+        width: 120px;
+        height: 100%;
+        position: fixed;
+    }
+    .sidebar .menu{
+        margin-top: 10px;
+        padding-left: 15px;
+        padding-right: 0px;
+        position: relative;
+        font-size: 10px;
+    }
+    .sidebar .menu .menu-item a {
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar .menu .menu-item i {
+        font-size: 10px;
+    }
+    .sidebar .menu-item .arrow{
+        font-size: 8px;
+        display: none;
+    }
+    .sidebar .submenu {
+        margin-top: 3px;
+        margin-right: 5px;
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar .submenu.active li a{
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar .submenu.active li i{
+        font-size: 10px;
+    }
+    .sidebar .avatar-profile{
+        width: 50px;
+        height: 50px;
+        padding: 5px;
+        margin: 20px 20px 20px 30px;
+        background: transparent;
+    }
+    .sidebar .avatar-profile .avatar img{
+        clip-path: ellipse(50% 50% at center);
+        padding: 5px 5px 10px 5px;
+        width: 100%;
+        height: 100%;
+    }
+    .logo-container img{
+        display: none;
+    }
+}
