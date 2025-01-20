@@ -70,9 +70,13 @@ class AdminController extends Controller
                 break;
         }
 
-        $alumni = $alumni->paginate(4);
+        $alumni = $alumni->paginate(25);
         # code...
-        
+        $no = ($request->input('page', 1) - 1) * 25 + 1;
+
+        if ($request->ajax()) {
+            return view('superadmin.partials.dashboard', compact('alumni', 'no'))->render();
+        }
         $siswaColumns = ['name', 'nis', 'nisn', 'alamat', 'nama_orang_tua','tanggal_lahir', 'tanggal_lulus'];
         $totalSiswa = Siswa::count();
 
@@ -100,7 +104,7 @@ class AdminController extends Controller
             'Lanjut Studi' => $karirCounts->get('Lanjut Studi', 0)
         ];
         
-        return view('admin.dashboard', compact('user', 'alumni', 'data_siswa', 'jenis_karir'));
+        return view('admin.dashboard', compact('user', 'alumni', 'data_siswa', 'jenis_karir', 'no'));
     }
     public function create(){
         if (auth()->user()->level !== 'admin') {
@@ -236,14 +240,21 @@ class AdminController extends Controller
         return redirect()->intended('admin/dashboard')->withSuccess('Data has been Delete');
     }
 
-    public function user(){
+    public function user(Request $request){
         if (auth()->user()->level !== 'admin') {
             abort(403, 'Unauthorized');
         }
         $userAll = User::paginate(15);
+
+        $no = ($request->input('page', 1) - 1) * 15 + 1;
+
+        if ($request->ajax()) {
+            return view('superadmin.partials.user-data', compact('userAll', 'no'))->render();
+        }
+
         $user = auth()->user();
         
-        return view('superadmin.user-data', compact('user', 'userAll'));
+        return view('superadmin.user-data', compact('no', 'user', 'userAll'));
     }
     public function userDetail($id, $slug){
         if (auth()->user()->level !== 'admin') {
@@ -276,18 +287,26 @@ class AdminController extends Controller
         $user->save();
         return response()->json(['success' => 'User updated successfully']);
     }
-    public function cekKarir(){
+
+    public function cekKarir(Request $request){
         if (auth()->user()->level !== 'admin') {
             abort(403, 'Unauthorized');
         }
         $user = auth()->user();
-        $no = 1;
-        $alumni = Siswa::with('karirs', 'jurusans')->get()->all();
-        $years = Siswa::selectRaw('YEAR(tanggal_lulus) as tahun_lulus')->distinct()->orderBy('tahun_lulus', 'desc')->pluck('tahun_lulus');
+        $no = ($request->input('page', 1) - 1) * 25 + 1;
+        $allAlumni = Siswa::with('karirs', 'jurusans')->get();
+        
+        $alumni = Siswa::with('karirs', 'jurusans')->paginate(25);
+
+        $years = Siswa::selectRaw('YEAR(tanggal_lulus) as tahun_lulus')
+            ->distinct()
+            ->orderBy('tahun_lulus', 'desc')
+            ->pluck('tahun_lulus');
         $bidangKarirList = Karir::distinct()->pluck('karirs.bidang');
+        $kompetensiList = Jurusan::distinct()->pluck('jurusans.kompetensi_keahlian');
         $alumniByYearAndKarir = [];
         $alumniByYearAndBidang = [];
-        foreach ($alumni as $alumniItem) {
+        foreach ($allAlumni as $alumniItem) {
             $tanggalLulus = Carbon::parse($alumniItem->tanggal_lulus);
             $tahunLulus = $tanggalLulus->format('Y');
             
@@ -330,83 +349,104 @@ class AdminController extends Controller
                 $grafikData['datasets'][$index]['data'][] = $karirData[$bidang] ?? 0;
             }
         }
+
+        if ($request->ajax()) {
+            return view('superadmin.partials.karir', compact('alumni', 'no', 'years', 'kompetensiList', 'bidangKarirList'))->render();
+        }
         // foreach ($alumniByYearAndKarir as $tahunLulus => $karirData) {
         //     $grafikData['labels'][] = $tahunLulus;
         //     $grafikData['datasets'][0]['data'][] = $karirData['bekerja'] ?? 0;
         //     $grafikData['datasets'][1]['data'][] = $karirData['Perguruan tinggi'] ?? 0;
         // }              
-        return view('admin.karir', compact('grafikData', 'alumni', 'no', 'years', 'bidangKarirList', 'user'));
+        return view('admin.karir', compact('grafikData', 'alumni', 'no', 'years', 'kompetensiList', 'bidangKarirList', 'user'));
     }
-    public function rinci(){
-        if (auth()->user()->level !== 'admin') {
-            abort(403, 'Unauthorized');
-        }
-        $user = auth()->user();
-        $alumni = Siswa::with('karirs', 'jurusans')->get();
-        $totalAlumni = Siswa::count();
-        $kompetensiKeahlian = Jurusan::pluck('kompetensi_keahlian')->toArray();
-        $alumniPerKomli = [];
-        $averageAlumniPerKomli = [];
 
-        foreach ($kompetensiKeahlian as $kompetensi) {
-            $count = Siswa::whereHas('jurusans', function($query) use ($kompetensi) {
-                $query->where('kompetensi_keahlian', $kompetensi);
-            })->count();
-            $alumniPerKomli[$kompetensi] = $count;
-            if ($totalAlumni > 0 ){
-                $averageAlumniPerKomli[$kompetensi] = ($count / $totalAlumni) * 100;
-            }else{
-                $averageAlumniPerKomli[$kompetensi] = 0;
-            }
-        }
+    public function rinci(Request $request){
+    if (auth()->user()->level !== 'admin') {
+        abort(403, 'Unauthorized');
+    }
 
-        // Menghitung data berdasarkan tahun lulus
-        $alumniByYear = [];
-        foreach ($alumni as $alumniItem) {
-            $tahunLulus = Carbon::parse($alumniItem->tanggal_lulus)->format('Y');
-            if (!isset($alumniByYear[$tahunLulus])) {
-                $alumniByYear[$tahunLulus] = [];
-            }
-            $alumniByYear[$tahunLulus][] = $alumniItem;
-        }
+    $user = auth()->user();
+    
+    // Mengambil semua data siswa untuk perhitungan statistik
+    $allAlumni = Siswa::with('karirs', 'jurusans')->get();
 
-        $grafikData = [
-            'labels' => array_keys($alumniByYear),
-            'datasets' => [],
+    // Mengambil data siswa dengan pagination
+    $alumni = Siswa::with('karirs', 'jurusans')->paginate(25);
+    $no = ($request->input('page', 1) - 1) * 25 + 1;
+    if ($request->ajax()) {
+        return view('superadmin.partials.laporan', compact('alumni', 'no'))->render();
+    }
+
+    $totalAlumni = $allAlumni->count();
+    $kompetensiKeahlian = Jurusan::pluck('kompetensi_keahlian')->toArray();
+
+    $alumniPerKomli = [];
+    $averageAlumniPerKomli = [];
+
+    foreach ($kompetensiKeahlian as $kompetensi) {
+        $count = $allAlumni->filter(function ($siswa) use ($kompetensi) {
+            return $siswa->jurusans->kompetensi_keahlian === $kompetensi;
+        })->count();
+
+        $alumniPerKomli[$kompetensi] = $count;
+        if ($totalAlumni > 0) {
+            $averageAlumniPerKomli[$kompetensi] = ($count / $totalAlumni) * 100;
+        } else {
+            $averageAlumniPerKomli[$kompetensi] = 0;
+        }
+    }
+
+    // Menghitung data berdasarkan tahun lulus
+    $alumniByYear = [];
+    foreach ($allAlumni as $alumniItem) {
+        $tahunLulus = Carbon::parse($alumniItem->tanggal_lulus)->format('Y');
+        if (!isset($alumniByYear[$tahunLulus])) {
+            $alumniByYear[$tahunLulus] = [];
+        }
+        $alumniByYear[$tahunLulus][] = $alumniItem;
+    }
+
+    $grafikData = [
+        'labels' => array_keys($alumniByYear),
+        'datasets' => [],
+    ];
+
+    $warnaKompetensi = [
+        'Desain Komunikasi Visual' => 'rgba(164, 37, 203, 0.4)',     // Ungu
+        'Teknik Kendaraan Ringan Otomotif' => 'rgba(162, 158, 162, 0.4)',  // Abu-abu
+        'Agribisnis Pengolahan Hasil Pertanian' => 'rgba(255, 165, 0, 0.4)',  // Oranye
+        'Teknik Pemesinan' => 'rgba(43, 194, 234, 0.4)',   // Biru
+        'Teknik Pengelasan' => 'rgba(227, 57, 29, 0.4)',  // Merah Tua
+    ];
+
+    foreach ($kompetensiKeahlian as $kompetensi) {
+        $data = [
+            'label' => $kompetensi,
+            'data' => [],
+            'backgroundColor' => $warnaKompetensi[$kompetensi] ?? 'rgba(0,0,0,1)', // Default warna hitam jika tidak ditemukan
+            'borderColor' => $warnaKompetensi[$kompetensi] ?? 'rgba(0,0,0,0.4)',
+            'borderWidth' => 1,
         ];
 
-        $warnaKompetensi = [
-            'Desain Komunikasi Visual' => 'rgba(164, 37, 203, 0.4)',     // Ungu
-            'Teknik Kendaraan Ringan Otomotif' => 'rgba(162, 158, 162, 0.4)',  // Abu-abu
-            'Agrobisnis Pengolahan Hasil Pertanian' => 'rgba(255, 165, 0, 0.4)',  // Oranye
-            'Teknik Pemesinan' => 'rgba(43, 194, 234, 0.4)',   // Biru
-            'Teknik Pengelasan' => 'rgba(227, 57, 29, 0.4)',  // Merah Tua
-        ];
-
-        foreach ($kompetensiKeahlian as $kompetensi) {
-            $data = [
-                'label' => $kompetensi,
-                'data' => [],
-                'backgroundColor' => $warnaKompetensi[$kompetensi],
-                'borderColor' => $warnaKompetensi[$kompetensi],
-                'borderWidth' => 1,
-            ];
-
-            foreach ($grafikData['labels'] as $tahun) {
-                $data['data'][] = count(array_filter($alumniByYear[$tahun], function ($alumniItem) use ($kompetensi) {
-                    return $alumniItem->jurusans->kompetensi_keahlian === $kompetensi;
-                }));
-            }
-
-            $grafikData['datasets'][] = $data;
+        foreach ($grafikData['labels'] as $tahun) {
+            $data['data'][] = count(array_filter($alumniByYear[$tahun], function ($alumniItem) use ($kompetensi) {
+                return $alumniItem->jurusans->kompetensi_keahlian === $kompetensi;
+            }));
         }
-        return view('admin.laporan', [
-            'totalAlumni' => $totalAlumni,
-            'alumniPerKomli' => $alumniPerKomli,
-            'averageAlumniPerKomli' => $averageAlumniPerKomli,
-            'grafikData' => $grafikData,
-        ], compact('alumni', 'user'));
+
+        $grafikData['datasets'][] = $data;
     }
+    $no = ($request->input('page', 1) - 1) * 25 + 1;
+    return view('admin.laporan', [
+        'totalAlumni' => $totalAlumni,
+        'alumniPerKomli' => $alumniPerKomli,
+        'averageAlumniPerKomli' => $averageAlumniPerKomli,
+        'grafikData' => $grafikData,
+        'alumni' => $alumni,
+        'user' => $user,
+    ], compact('no'));
+}
 
     public function dataJurusan(){
         if (auth()->user()->level !== 'admin') {
@@ -430,8 +470,7 @@ class AdminController extends Controller
         }
         # code...
         $request->validate([
-            'kompetensi_keahlian' => 'required|max:35',
-            'program_studi' => 'required|max:35',
+            'kompetensi_keahlian' => 'required|max:50',
         ]);
         $jurusan = Jurusan::get();
         $jurusan->create([
@@ -455,8 +494,7 @@ class AdminController extends Controller
         }
         # code...
         $request->validate([
-            'kompetensi_keahlian' => 'required|max:35',
-            'program_studi' => 'required|max:35',
+            'kompetensi_keahlian' => 'required|max:50',
         ]);
 
         $jurusan = Jurusan::findOrFail($id);
@@ -490,8 +528,15 @@ class AdminController extends Controller
         if (auth()->user()->level !== 'admin') {
             abort(403, 'Unauthorized');
         }
+
+        $path = public_path('images/70286974LOGOSMKN2SPG-600x527.PNG');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64Image = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $tahunLulus = $request->input('tahun_lulus');
         $bidangKarir = $request->input('bidang');
+        $kompetensiKeahlian = $request->input('kompetensi');
         
         $query = Siswa::with('karirs', 'jurusans');
         
@@ -505,12 +550,19 @@ class AdminController extends Controller
             });
         }
 
+        if ($kompetensiKeahlian && $kompetensiKeahlian !== 'all') {
+            $query->whereHas('jurusans', function($q) use ($kompetensiKeahlian) {
+                $q->where('kompetensi_keahlian', '=', $kompetensiKeahlian);
+            });
+        }
+
         $data = $query->get();
         $bidangKarirList = Karir::distinct()->pluck('karirs.bidang');
+        $kompetensiList = Jurusan::distinct()->pluck('jurusans.kompetensi_keahlian');
         $years = Siswa::selectRaw('YEAR(tanggal_lulus) as tahun_lulus')->distinct()->orderBy('tahun_lulus', 'desc')->pluck('tahun_lulus');
 
         // Proses data grafik
-        return view('admin.pdf', compact('data', 'years', 'tahunLulus'));
+        return view('admin.pdf', compact('data', 'years', 'tahunLulus', 'base64Image', 'bidangKarirList', 'kompetensiList'));
     }
 
     /**
@@ -522,24 +574,52 @@ class AdminController extends Controller
         if (auth()->user()->level !== 'admin') {
             abort(403, 'Unauthorized');
         }
+
+        $path = public_path('images/70286974LOGOSMKN2SPG-600x527.PNG');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64Image = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $tahunLulus = $request->input('tahun_lulus');
-        $bidangKarir = $request->input('bidang');
+        // $bidangKarir = $request->input('bidang');
+        $kompetensiKeahlian = $request->input('kompetensi');
         
         $query = Siswa::with('karirs', 'jurusans');
         
         if($tahunLulus && $tahunLulus !== 'all'){
-            $query->whereYear('tanggal_lulus', $tahunLulus);
+            $query->whereYear('tanggal_lulus', '=', $tahunLulus);
+            
         }
 
-        if($bidangKarir && $bidangKarir !== 'all'){
-            $query->whereHas('karirs', function  ($q) use ($bidangKarir) {
-                $q->where('bidang', $bidangKarir);
+        // if($bidangKarir && $bidangKarir !== 'all'){
+        //     $query->whereHas('karirs', function($q) use ($bidangKarir) {
+        //         $q->where('bidang', '=', $bidangKarir);
+        //     });
+        // }
+
+        if ($kompetensiKeahlian && $kompetensiKeahlian !== 'all') {
+            $query->whereHas('jurusans', function($q) use ($kompetensiKeahlian) {
+                $q->where('kompetensi_keahlian', '=', $kompetensiKeahlian);
             });
+            $query->orderBy('name', 'asc');
         }
+
+        // $query->join('jurusans', 'jurusans.id', '=', 'siswas.jurusan_id');
+
+        // if ($kompetensiKeahlian && $kompetensiKeahlian == 'all') {
+        //     $query->orderBy('jurusans.kompetensi_keahlian', 'asc')->orderBy('siswas.name', 'asc');
+        // }
 
         $data = $query->get();
-        $bidangKarirList = Karir::distinct()->pluck('karirs.bidang');
-        $years = Siswa::selectRaw('YEAR(tanggal_lulus) as tahun_lulus')->distinct()->orderBy('tahun_lulus', 'desc')->pluck('tahun_lulus');
+
+        $chunks = $data->chunk(8);
+
+        // $bidangKarirList = Karir::distinct()->pluck('karirs.bidang');
+        $kompetensiList = Jurusan::distinct()->pluck('jurusans.kompetensi_keahlian');
+        $years = Siswa::selectRaw('YEAR(tanggal_lulus) as tahun_lulus')
+                    ->distinct()
+                    ->orderBy('tahun_lulus', 'desc')
+                    ->pluck('tahun_lulus');
         
         // proses pdf
         $options = new \Dompdf\Options();
@@ -548,16 +628,24 @@ class AdminController extends Controller
         $options->set('isRemoteEnabled', true);
 
         $pdf = new \Dompdf\Dompdf($options);
-        $html = view('admin.pdf', compact('data', 'years', 'tahunLulus', 'bidangKarirList'))->render();
+
+        $html = view('admin.pdf', [
+            'chunks' => $chunks, 
+            'years' => $years, 
+            'tahunLulus' => $tahunLulus, 
+            'kompetensiList' => $kompetensiList, 
+            'base64Image' => $base64Image
+        ])->render();
 
         $exportDate = date('Y-m-d H:i:s');
         $footerHtml = '<div style="text-align: right;"><p>Ekspor Tanggal : ' . $exportDate . '</p></div>';
+
         $html = $footerHtml . $html;
+
         $pdf->loadHtml($html);
-        // Atur ukuran kertas dan orientasi
         $pdf->setPaper('F4', 'landscape');
         $pdf->render();
-        // Tampilkan PDF di browser
+        
         $pdf->stream('rekap_data_karir_alumni.pdf', array("Attachment" => false));
     }
     public function exportExcel()
@@ -581,95 +669,86 @@ class AdminController extends Controller
         return Excel::download(new AlumniExport, 'alumni.csv', \Maatwebsite\Excel\Excel::CSV);
     }
     public function importCSV(ImportCsvRequest $request)
-    {
-        if (auth()->user()->level !== 'admin') {
-            abort(403, 'Unauthorized');
-        }
-        try {
-            $file = $request->file('csv_file');
-            $filePath = $file->getRealPath();
-    
-            $data = array_map(function($line){
-                return str_getcsv($line, ';');
-            }, file($filePath));
-            // dd($data);
-            $header = array_shift($data);
-            
-            $expectedHeaders = ['NO', 'Kompetensi Keahlian', 'NAMA SISWA', 'Alamat', 'tanggal lahir', 'Nama Orang Tua/Wali', 'NIS', 'NISN'];
-            // dd($header);
-            if($header !== $expectedHeaders){
-                return redirect()->back()->with('error', 'Format header CSV tidak sesuai.');
-            }
-
-            $now = Carbon::now();
-            $defaultAvatar = 'images/default-avatar.png';
-            $bulan = [
-                'Januari' => '01',
-                'Februari' => '02',
-                'Maret' => '03',
-                'April' => '04',
-                'Mei' => '05',
-                'Juni' => '06',
-                'Juli' => '07',
-                'Agustus' => '08',
-                'September' => '09',
-                'Oktober' => '10',
-                'November' => '11',
-                'Desember' => '12',
-            ];
-    
-            foreach ($data as $row) {
-                if(count($row) !== count($header)){
-                    continue;
-                }
-                $row = array_combine($header, $row);
-                // dd($row);
-
-                $tanggalLahir = trim($row['tanggal lahir'], ', ');
-                
-                foreach ($bulan as $namaBulan => $angkaBulan){
-                    if(strpos($tanggalLahir, $namaBulan) !== false){
-                        $tanggalLahir = str_replace($namaBulan, $angkaBulan, $tanggalLahir);
-                        break;
-                    }
-                }
-                $tanggalLahir = Carbon::createFromFormat('d m Y', $tanggalLahir);
-                // dd($tanggalLahir);
-
-                $jurusan = Jurusan::where('kompetensi_keahlian', $row['Kompetensi Keahlian'])->first();
-                if (!$jurusan) {
-                    // dd($jurusan);
-                    return redirect()->back()->with('error', 'Jurusan dengan kompetensi keahlian ' . $row['Kompetensi Keahlian'] . ' tidak ditemukan.');
-                }
-                $user = User::create([
-                    'name' => $row['NAMA SISWA'],
-                    'email' => $row['NAMA SISWA'] . '@example.com', // Ubah ini sesuai kebutuhan
-                    'password' => Hash::make('password'), // Password default
-                    'level' => 'siswa',
-                    'avatar' => $defaultAvatar, 
-                ]);
-                Siswa::updateOrCreate(
-                    [
-                        'nis' => $row['NIS'],
-                        'nisn' => $row['NISN'],
-                    ],
-                    [
-                        'name' => $row['NAMA SISWA'],
-                        'alamat' => $row['Alamat'],
-                        'tanggal_lahir' => $tanggalLahir,
-                        'nama_orang_tua' => $row['Nama Orang Tua/Wali'],
-                        'status_siswa' => 'lulus',
-                        'tanggal_lulus' => $now,
-                        'jurusan_id' => $jurusan->id,
-                        'user_id' => $user->id,
-                    ]
-                );
-            }
-            return redirect()->back()->with('success', 'Data berhasil diimpor.');
-        } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
-        }
+{
+    if (auth()->user()->level !== 'admin') {
+        abort(403, 'Unauthorized');
     }
+    try {
+        $file = $request->file('csv_file');
+        $filePath = $file->getRealPath();
+
+        // Menggunakan delimiter tab ('\t')
+        $data = array_map(function($line){
+            return str_getcsv($line, ";");
+        }, file($filePath));
+
+        $header = array_shift($data);
+
+        $expectedHeaders = ['No', 'Kompetensi Keahlian', 'Nama Siswa', 'Alamat', 'Tanggal Lahir', 'Nama Orang Tua/Wali', 'NIS', 'NISN'];
+
+        if($header !== $expectedHeaders){
+            return redirect()->back()->with('error', 'Format header CSV tidak sesuai.');
+        }
+
+        $now = Carbon::now();
+        $defaultAvatar = 'images/default-avatar.png';
+
+        foreach ($data as $row) {
+            if(count($row) !== count($header)){
+                continue;
+            }
+            $row = array_combine($header, $row);
+
+            $tanggalLahir = trim($row['Tanggal Lahir'], ', ');
+            $tanggalLahir = Carbon::createFromFormat('d/m/Y', $tanggalLahir);
+
+            $jurusan = Jurusan::where('kompetensi_keahlian', $row['Kompetensi Keahlian'])->first();
+            if (!$jurusan) {
+                return redirect()->back()->with('error', 'Jurusan dengan kompetensi keahlian ' . $row['Kompetensi Keahlian'] . ' tidak ditemukan.');
+            }
+
+            // Menghapus spasi dari nama siswa untuk email
+            $emailName = str_replace(' ', '', $row['Nama Siswa']);
+            $email = $emailName . '@example.com'; // Ubah ini sesuai kebutuhan
+
+            $originalEmail = $email;
+            $counter = 1;
+            while (User::where('email', $email)->exists()) {
+                $email = $emailName . $counter . '@example.com';
+                $counter++;
+            }
+
+            $user = User::create([
+                'name' => $row['Nama Siswa'],
+                'email' => $email,
+                'password' => Hash::make('password'), // Password default
+                'level' => 'siswa',
+                'avatar' => $defaultAvatar, 
+            ]);
+
+            Siswa::updateOrCreate(
+                [
+                    'nis' => $row['NIS'],
+                    'nisn' => $row['NISN'],
+                ],
+                [
+                    'name' => $row['Nama Siswa'],
+                    'alamat' => $row['Alamat'],
+                    'tanggal_lahir' => $tanggalLahir,
+                    'nama_orang_tua' => $row['Nama Orang Tua/Wali'],
+                    'status_siswa' => 'lulus',
+                    'tanggal_lulus' => $now,
+                    'jurusan_id' => $jurusan->id,
+                    'user_id' => $user->id,
+                ]
+            );
+        }
+        return redirect()->back()->with('success', 'Data berhasil diimpor.');
+    } catch (Exception $e) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+    }
+}
+
 
     public function updateProfile(Request $request, $slug){
         $user = User::where('slug', $slug)->firstOrFail();

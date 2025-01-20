@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Update {{ $user->name }}</title>
+        <title>Update Profile {{ $user->name }}</title>
         <link rel="stylesheet" href="{{ asset('css/siswa-home.css') }}">
         <link rel="stylesheet" href="{{ asset('css/card-name.css') }}">
         <script src="https://kit.fontawesome.com/e10155b56c.js" crossorigin="anonymous"></script>
@@ -12,13 +12,13 @@
     <div>
         <!-- When there is no desire, all things are at peace. - Laozi -->
         <style>
-            /* body,html{
+            body,html{
                 height: 100%;
             }
             body {
-                background: #daa000;   
+                background: #79C7FF;   
                 font-family: 'Montserrat', sans-serif;
-            } */
+            }
             .wrapper{
                 display: flex;
                 justify-content: center;

@@ -246,10 +246,14 @@ class siswaController extends Controller
             'Belum bekerja' => $karirCounts->get('Belum bekerja', 0),
             'Lanjut studi' => $karirCounts->get('Lanjut Studi', 0)
         ];
-        $post = Acara::with('users')->get()->all();
+
+        $post = Acara::with('users')->get();
+        
         $siswa = Siswa::with('karirs', 'jurusans')->get();
+        
         $totalAlumni = Siswa::count();
         $kompetensiKeahlian = Jurusan::pluck('kompetensi_keahlian')->toArray();
+        
         $alumniByYear = [];
         foreach ($siswa as $alumniItem) {
             $tahunLulus = Carbon::parse($alumniItem->tanggal_lulus)->format('Y');
@@ -267,7 +271,7 @@ class siswaController extends Controller
         $warnaKompetensi = [
             'Desain Komunikasi Visual' => 'rgba(164, 37, 203, 0.4)',     // Ungu
             'Teknik Kendaraan Ringan Otomotif' => 'rgba(162, 158, 162, 0.4)',  // Abu-abu
-            'Agrobisnis Pengolahan Hasil Pertanian' => 'rgba(255, 165, 0, 0.4)',  // Oranye
+            'Agribisnis Pengolahan Hasil Pertanian' => 'rgba(255, 165, 0, 0.4)',  // Oranye
             'Teknik Pemesinan' => 'rgba(43, 194, 234, 0.4)',   // Biru
             'Teknik Pengelasan' => 'rgba(227, 57, 29, 0.4)',  // Merah Tua
         ];

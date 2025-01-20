@@ -17,12 +17,12 @@
     </head>
     <style>
         .logo-container{
-            margin-right: 5px;
+            margin-right: 8px;
         }
         .logo-container img{
             width: 50px;
             height: 40px;
-            margin-top: 5px;
+            /* margin-top: 10px; */
             margin-left: 2%;
             padding-left: 2%;
         }
@@ -40,7 +40,7 @@
                 Alumni
             </h2>
             <nav class="navigation">
-                <a href="#home" class="active">Menu Utama</a>
+                <a href="#home" >Menu Utama</a>
                 <a href="#about" >Tentang</a>
                 <a href="#service" >Mading</a>
                 <!-- <a href="#contact" >Contact</a> -->
@@ -57,10 +57,9 @@
                 <div class="menu-icon" id="menu"><i class="fa-solid fa-burger"></i></div>
                 <!-- Dropdown -->
                 <div class="nav-dropdown" id="dropdown" style="display: none;">
-                    <a href="#home" >Home</a>
-                    <a href="#about" >About</a>
-                    <a href="#service" >Service</a>
-                    <a href="#contact" >Contact</a>
+                    <a href="#home" >Menu Utama</a>
+                    <a href="#about" >Tentang</a>
+                    <a href="#service" >Mading</a>
                     @auth
                         <a href="{{ route('logout') }}">Logout</a>
                     @endauth
@@ -70,19 +69,19 @@
 
         <section id="home">
             <section class="parallax">
-                <img src="{{ asset('parallax/Parallax 1.png') }}" id="Parallax1">
-                <img src="{{ asset('parallax/Parallax 2-1.png') }}" id="Parallax2">
-                <img src="{{ asset('parallax/Parallax 2-2.png') }}" id="Parallax2">
-                <img src="{{ asset('parallax/Parallax 3-1.png') }}" id="Parallax3">
-                <img src="{{ asset('parallax/Parallax 3-2.png') }}" id="Parallax3">
-                <h2 id="text" style="color:;">"Fokus Tujuan, bukan Hambatan"</h2>
+                <img src="{{ asset('parallax/Parallax 1.webp') }}" id="Parallax1" loading="lazy">
+                <img src="{{ asset('parallax/Parallax 2-1.webp') }}" id="Parallax2" loading="lazy">
+                <img src="{{ asset('parallax/Parallax 2-2.webp') }}" id="Parallax2" loading="lazy">
+                <h2 id="text" style="color: white;">"Fokus Tujuan, Bukan Hambatan"</h2>
+                <img src="{{ asset('parallax/Parallax 3-1.webp') }}" id="Parallax3" loading="lazy">
+                <img src="{{ asset('parallax/Parallax 3-2.webp') }}" id="Parallax3" loading="lazy">
             </section>
 
             <section class="sec">
                 <h2>Menu Utama</h2>
                 <p>
                     "Akar dari pendidikan memang pahit, tapi buahnya manis. - Aristoteles<br>
-                    Tindakan adalah kunci menuju kesuksesan dan Fokus pada tujuan, bukan hambatan."<br><br>
+                    Tindakan adalah kunci menuju kesuksesan dan Fokus pada tujuan, bukan hambatan."<br>
                     "Hiduplah seolah engkau mati besok. Belajarlah seolah engkau hidup selamanya. - Mahatma Gandhi<br>
                     Watukosek - Reuni adalah pertemuan mantan teman, biasanya diadakan di atau dekat tempat Pendidikan lama mereka oleh seorang anggota saat atau mendekati ulang tahun kelulusan mereka.<br>
                     Pendidikan adalah kunci untuk membuka gembok dunia, paspor untuk kebebasan." - Oprah Winfrey <br>
@@ -191,7 +190,7 @@
                 <div class="sec2-body">
                     <div class="card-about">
                         <h3>Visi: </h3>
-                        <p style="font-size: 15px;">
+                        <p>
                             "Menjadi SMK bertaraf Internasional yang dapat mencetak tenaga Profesional Inovatif, Berbudaya, Berdaya saing global, Mampu mengembangkan sumber daya lokal, berbasis Imtaq dan Iptek serta berwawasan lingkungan"
                         </p>
                     </div>
@@ -200,7 +199,7 @@
                 <div class="sec2-body">
                     <div class="card-about">
                         <h3>Misi:</h3>
-                        <p style="font-size: 14px;">
+                        <p>
                             1.	Menyiapkan tenaga kerja tingkat menengah untuk mengisi kebutuhan pembangunan baik di dalam dan  di luar negeri. <br>
                             2.	Membekali lulusan dengan keahlian profesi sebagai keunggulan <br>
                             3.	Menghasilkan lulusan yang mampu mandiri sehingga dapat mengembangkan kualitas dirinya secara berkelanjutan <br>
@@ -220,6 +219,9 @@
                 <div class="content">
                     <section class="media-scroller-container">
                         <div class="media-scroller">
+                        @if($post->isEmpty())
+                            <p>Data belum tersedia...</p>
+                        @else
                             @foreach ($post as $event)
                                 <article class="card">
                                     <img src="{{ asset('event/' . $event->poster) }}" alt="Poster Acara" class="card-image">
@@ -234,6 +236,7 @@
                                     </div>
                                 </article>
                             @endforeach
+                        @endif
                         </div>
                     </section>
                 </div>
@@ -241,7 +244,7 @@
         </section>
         <section id="contact">
             <section class="sec3">
-                <footer class="top">
+                <!-- <footer class="top">
                         <div class="links">
                             <div class="links-column">
                                 <h2>Contact Us</h2>
@@ -256,13 +259,13 @@
                                     Follow us ....
                                 </label>
                                 <div class="socials">
-                                    <!-- <a href="#" class="fa-reguler fa-brands fa-facebook"></a> -->
+
                                     <a href="https://www.instagram.com/smekda.squad?igsh=cDhieXZ6MHlkenFv" class="fa-reguler fa-brands fa-instagram"></a>
                                     <a href="https://youtube.com/@smekda.official?si=-oyVUK15jSnJsD_H" class="fa-reguler fa-brands fa-youtube"></a>
                                 </div>
                             </div>
                         </div>
-                    </footer>
+                    </footer> -->
                     <footer class="bottom">
                         <p class="copyright">&copy; 2023 Not For Commercial</p>
                         <div class="legal">

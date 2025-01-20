@@ -1,6 +1,38 @@
 <main>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .pagination-links nav{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination-links .pagination{
+            display: flex;
+            list-style: none;
+            padding: 0;
+            font: 12px bold;
+        }
+        .pagination-links .pagination li{
+            margin: 0 0px;
+        }
+        .pagination-links .pagination li a,
+        .pagination-links .pagination li span {
+            display: block;
+            padding: 5px 8px;
+            /* color: #007bff; */
+            color: #252525;
+            text-decoration: none;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .pagination-links .pagination li a:hover,
+        .pagination-links .pagination li span.current {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
     <div class="side-content">
         <div class="sidebar" id="sidebar">
             <ul>
@@ -17,7 +49,7 @@
                 <hr>
                 <li class="menu sub-toggle">
                     <div class="menu-item">
-                        <span title="Data User"><i class="fa fa-users"></i>Data User</a></span>
+                        <span title="Data User"><i class="fa fa-users"></i>Data Users</a></span>
                         <i class="fa-solid fa-chevron-down arrow"></i>
                     </div>
                     <ul class="submenu">
@@ -28,12 +60,12 @@
                 <hr>
                 <li class="menu sub-toggle">
                     <div class="menu-item">
-                        <span title="Data Siswa"><i class="fa fa-graduation-cap"></i>Data Alumni</span>
+                        <span title="Data Siswa"><i class="fa fa-graduation-cap"></i>Data Sekolah</span>
                         <i class="fa-solid fa-chevron-down arrow"></i>
                     </div>
                     <ul class="submenu">
                         <hr>
-                        <li><a href="{{ route('admin.laporan') }}" role="button" title="Dashboard Siswa"><i class="fa fa-solid fa-user-graduate"></i>Data Siswa</a></li>
+                        <li><a href="{{ route('admin.laporan') }}" role="button" title="Dashboard Siswa"><i class="fa fa-solid fa-user-graduate"></i>Data Alumni</a></li>
                         <hr>
                         <li><a href="{{ route('admin.laporan.jurusan') }}" role="button" title="Dashboard Jurusan"><i class="fa-regular fa-paste"></i>Data Jurusan</a></li>
                     </ul>
@@ -61,14 +93,14 @@
                     </ul>
                 </li>
                 <hr>
-                <!-- <li class="menu sub-toggle">
+                <li class="menu sub-toggle">
                     <div class="menu-item">
                         <span title="Data Laporan"><a href="{{ route('questionnaires.index') }}" role="button"><i class="fa-solid fa-circle-question"></i>Kuisioner</a></span>
                     </div>
-                    <ul class="submenu">
+                    <!-- <ul class="submenu">
                         <li><i class="fa-solid fa-diagram-project"></i>Karir</li>
-                    </ul> 
-                </li> -->
+                    </ul>  -->
+                </li>
             </ul>
         </div>
     </div>

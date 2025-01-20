@@ -3,7 +3,7 @@
 <head>
     <title>SI Alumni App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://kit.fontawesome.com/e10155b56c.js" crossorigin="anonymous"></script>
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
         @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
@@ -16,8 +16,8 @@
             font-weight: 400;
             line-height: 1.6;
             color: #212529;
-            text-align: left;
-            background: #233037;
+            /* text-align: left; */
+            background: #79c7FF;
         }
         .navbar-laravel
         {

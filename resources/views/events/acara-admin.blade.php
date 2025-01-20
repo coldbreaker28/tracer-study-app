@@ -13,49 +13,39 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 </head>
 <body class="main-content">
-    <nav class="nav-bar">
-        <button class="toggle-btn" onclick="toggleSidebar()" title="Sidebar Menu"><i class="bi bi-list"></i></button>
-        <div class="nav-text">
-            <div class="logo-container">
-                <img src="{{ asset('images/logo smk 2 svg.svg') }}" alt="logo">
-            </div>
-            <h1 class="logo">Si <span class="var1">Alumni</span></h1>
-        </div>
-        <div class="nav-text" role="button">
-            <div class="user-logout-container">
-                <span>{{ Auth::user()->name }} </span>
-                <a href="{{ route('logout') }}" class="logo">Log<span class="var1">out</span></a>
-            </div>
-        </div>
-    </nav>
+    @include('components.navAdmin')
     @include('components.sidebarAdmin')
     <div class="container-body" id="container-body">
         <div class="content">
             <h2>Mading Poster</h2><hr>
             <section class="media-scroller-container">
                 <div class="media-scroller">
-                    @foreach ($post as $event)
-                        <article class="card">
-                            <img src="{{ asset('event/' . $event->poster) }}" alt="Poster Acara" class="card-image">
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="{{ route('events.admin.detail', $event->id) }}">{{ $event->judul }}</a></h3>
-                                <div class="card-author">
-                                    <img src="{{ asset('event/' .$event->users->avatar) }}" alt="Avatar User" class="author-image">
-                                    <div class="author-details">
-                                        <span class="author-name">{{ $event->users->name }}</span>
-                                        <span class="publish-date">{{ $event->created_at->format('d-F-Y') }}</span>
+                    @if($post->isEmpty())
+                        <p>Data belum tersedia...</p>
+                    @else
+                        @foreach ($post as $event)
+                            <article class="card">
+                                <img src="{{ asset('event/' . $event->poster) }}" alt="Poster Acara" class="card-image">
+                                <div class="card-body">
+                                    <h3 class="card-title"><a href="{{ route('events.admin.detail', $event->id) }}">{{ $event->judul }}</a></h3>
+                                    <div class="card-author">
+                                        <img src="{{ asset('event/' .$event->users->avatar) }}" alt="Avatar User" class="author-image">
+                                        <div class="author-details">
+                                            <span class="author-name">{{ $event->users->name }}</span>
+                                            <span class="publish-date">{{ $event->created_at->format('d-F-Y') }}</span>
+                                        </div>
+                                        <form action="{{ route('events.destroy', $event->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" role="button" title="Hapus Post" class="post-btn-destroy">
+                                                <i class="fa-regular fa-trash-can"></i>
+                                            </button>
+                                        </form>
                                     </div>
-                                    <form action="{{ route('events.destroy', $event->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" role="button" title="Hapus Post" class="post-btn-destroy">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </button>
-                                    </form>
                                 </div>
-                            </div>
-                        </article>
-                    @endforeach
+                            </article> 
+                        @endforeach
+                    @endif
                 </div>
             </section>
             <!-- <br>

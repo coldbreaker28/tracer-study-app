@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{ asset('css/form.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-        <title>Tambah Jurusan</title>
+        <title>Edit Jurusan</title>
     </head>
     <body class="main-content">
         @include('components.navAdmin')
@@ -25,7 +25,7 @@
                         <div class="user-details">
                             <div class="input-box">
                                 <label class="details" for="kompetensi_keahlian">Nama Jurusan</label>
-                                <input name="kompetensi_keahlian" type="text" value="{{ $jurusan->kompetensi_keahlian ?? '-' }}" required>
+                                <input name="kompetensi_keahlian" id="kompetensi_keahlian" type="text" value="{{ $jurusan->kompetensi_keahlian ?? '-' }}" required>
                                 @error('kompetensi_keahlian')
                                     <span class="error-message visible">{{ $message }}</span>
                                 @enderror

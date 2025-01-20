@@ -20,7 +20,7 @@ class AcaraController extends Controller
             abort(403, 'Unauthorized');
         }
         $user = auth()->user();
-        $post = Acara::with('users')->get()->all();
+        $post = Acara::with('users')->get();
         return view('events.acara-admin', compact('post', 'user'));
     }
 
